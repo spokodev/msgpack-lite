@@ -27,11 +27,14 @@
     "isarray": "^2.0.5"
   },
   "devDependencies": {
+    "@msgpack/msgpack": "^3.1.3",
     "browserify": "^17.0.1",
     "concat-stream": "^2.0.0",
     "jshint": "^2.13.6",
     "mocha": "^11.8.0",
-    "msgpack.codec": "git+https://github.com/kawanet/msgpack-javascript.git#msgpack.codec",
+    "msgpack5": "^6.0.2",
+    "msgpackr": "^2.0.6",
+    "notepack.io": "^3.0.1",
     "uglify-js": "^3.19.3"
   },
   "files": [
