@@ -11,7 +11,7 @@ JSDEST=./dist/msgpack.min.js
 MINJS_MAX_BYTES := 60000
 NAMED_EXPORTS := encode decode Encoder Decoder createCodec
 
-all: test $(JSDEST) smoke-minjs
+all: test $(JSDEST)
 
 clean:
 	rm -fr $(JSDEST) $(JSTEMP)
@@ -27,7 +27,7 @@ $(JSDEST): $(JSTEMP)
 	@ls -l $@
 	@test "$$(wc -c < $@)" -le $(MINJS_MAX_BYTES) || { echo "ERROR: $@ exceeds $(MINJS_MAX_BYTES) byte cap" >&2; exit 1; }
 
-test: jshint mocha test-dep
+test: jshint mocha test-dep smoke-minjs
 
 mocha:
 	./node_modules/.bin/mocha -R spec $(TESTS)
