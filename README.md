@@ -194,7 +194,7 @@ function myVectorUnpacker(buffer) {
 }
 ```
 
-The first argument of `addExtPacker` and `addExtUnpacker` should be an integer within the range of 0 and 127 (0x0 and 0x7F). `myClassPacker` is a function that accepts an instance of `MyClass`, and should return a buffer representing that instance. `myClassUnpacker` is the opposite: it accepts a buffer and should return an instance of `MyClass`.
+The first argument of `addExtPacker` and `addExtUnpacker` should be an integer within the range of 0 and 127 (0x0 and 0x7F). `myVectorPacker` is a function that accepts an instance of `MyVector`, and should return a buffer representing that instance. `myVectorUnpacker` is the opposite: it accepts a buffer and should return an instance of `MyVector`.
 
 If you pass an array of functions to `addExtPacker` or `addExtUnpacker`, the value to be encoded/decoded will pass through each one in order. This allows you to do things like this:
 
