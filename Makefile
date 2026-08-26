@@ -48,7 +48,4 @@ smoke-minjs: $(JSDEST)
 	(echo 'module = void 0; exports = void 0;' && cat $< && echo '; for (const k of process.argv.slice(2)) { if (typeof $(CLASS)[k] !== "function") { console.error("missing browser export:", k); process.exit(1); } console.log("browser export OK:", k); }') | node - $(NAMED_EXPORTS)
 	node --input-type=commonjs -e 'const m = require("$(JSDEST)"); for (const k of process.argv.slice(1)) { if (typeof m[k] !== "function") { console.error("missing minjs CJS export:", k); process.exit(1); } console.log("minjs CJS export OK:", k); }' $(NAMED_EXPORTS)
 
-bench:
-	node lib/benchmark.js 1
-
-.PHONY: all clean test jshint mocha test-dep smoke-minjs bench
+.PHONY: all clean test jshint mocha test-dep smoke-minjs
