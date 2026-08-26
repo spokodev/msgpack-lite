@@ -1,7 +1,7 @@
 {
   "name": "msgpack-lite",
   "description": "Fast Pure JavaScript MessagePack Encoder and Decoder",
-  "version": "0.1.27",
+  "version": "0.2.0",
   "author": "@kawanet",
   "bin": {
     "msgpack": "./bin/msgpack"
@@ -21,19 +21,19 @@
     "Rafał Michalski <royaltm75@gmail.com>"
   ],
   "dependencies": {
-    "event-lite": "^0.1.1",
-    "ieee754": "^1.1.8",
-    "int64-buffer": "^0.1.9",
-    "isarray": "^1.0.0"
+    "event-lite": "^1.0.0",
+    "ieee754": "^1.2.1",
+    "int64-buffer": "^1.1.1",
+    "isarray": "^2.0.5"
   },
   "devDependencies": {
-    "async": "^2.1.1",
-    "browserify": "^13.1.0",
-    "concat-stream": "^1.5.2",
-    "jshint": "^2.9.3",
-    "mocha": "^3.1.2",
+    "async": "^3.2.6",
+    "browserify": "^17.0.1",
+    "concat-stream": "^2.0.0",
+    "jshint": "^2.13.6",
+    "mocha": "^11.8.0",
     "msgpack.codec": "git+https://github.com/kawanet/msgpack-javascript.git#msgpack.codec",
-    "uglify-js": "^2.7.3"
+    "uglify-js": "^3.19.3"
   },
   "files": [
     "LICENSE",
@@ -71,6 +71,9 @@
   ],
   "license": "MIT",
   "main": "index.js",
+  "overrides": {
+    "buffer": "4.9.2"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/kawanet/msgpack-lite.git"
