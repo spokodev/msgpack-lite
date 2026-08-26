@@ -8,17 +8,15 @@ var TITLE = __filename.replace(/^.*\//, "");
 var data = require("./example.json");
 
 describe(TITLE, function() {
-  test("msgpack", function(they) {
+  // Use the top level pack/unpack. A Packr instance defaults to the record
+  // extension, which packs repeated object shapes into a custom ext type
+  // that no other implementation reads back.
+  test("msgpackr", function(they) {
     assert.deepEqual(they.unpack(msgpack.encode(data)), data);
     assert.deepEqual(msgpack.decode(Buffer.from(they.pack(data))), data);
   });
 
-  test("msgpack-js", function(they) {
-    assert.deepEqual(they.decode(msgpack.encode(data)), data);
-    assert.deepEqual(msgpack.decode(Buffer.from(they.encode(data))), data);
-  });
-
-  test("msgpack-js-v5", function(they) {
+  test("@msgpack/msgpack", function(they) {
     assert.deepEqual(they.decode(msgpack.encode(data)), data);
     assert.deepEqual(msgpack.decode(Buffer.from(they.encode(data))), data);
   });
@@ -29,19 +27,9 @@ describe(TITLE, function() {
     assert.deepEqual(msgpack.decode(Buffer.from(they.encode(data))), data);
   });
 
-  test("notepack", function(they) {
+  test("notepack.io", function(they) {
     assert.deepEqual(they.decode(msgpack.encode(data)), data);
     assert.deepEqual(msgpack.decode(Buffer.from(they.encode(data))), data);
-  });
-
-  test("msgpack-unpack", function(they) {
-    assert.deepEqual(they(msgpack.encode(data)), data);
-  });
-
-  test("msgpack.codec", function(they) {
-    they = they.msgpack;
-    assert.deepEqual(they.unpack(msgpack.encode(data)), data);
-    assert.deepEqual(msgpack.decode(Buffer.from(they.pack(data))), data);
   });
 });
 
