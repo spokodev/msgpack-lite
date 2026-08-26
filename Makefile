@@ -8,8 +8,10 @@ CLASS=msgpack
 DIST=./dist
 JSTEMP=./dist/msgpack.browserify.js
 JSDEST=./dist/msgpack.min.js
+MINJS_MAX_BYTES := 60000
+NAMED_EXPORTS := encode decode Encoder Decoder createCodec
 
-all: test $(JSDEST)
+all: $(JSDEST)
 
 clean:
 	rm -fr $(JSDEST) $(JSTEMP)
@@ -22,9 +24,10 @@ $(JSTEMP): $(LIB) $(DIST)
 
 $(JSDEST): $(JSTEMP)
 	./node_modules/.bin/uglifyjs $(JSTEMP) -c "arrows=false" -m "reserved=[Buffer]" -o $(JSDEST)
-	ls -l $(JSDEST)
+	@ls -l $@
+	@test "$$(wc -c < $@)" -le $(MINJS_MAX_BYTES) || { echo "ERROR: $@ exceeds $(MINJS_MAX_BYTES) byte cap" >&2; exit 1; }
 
-test: jshint mocha test-dep
+test: jshint mocha test-dep smoke-minjs
 
 mocha:
 	./node_modules/.bin/mocha -R spec $(TESTS)
@@ -37,7 +40,15 @@ jshint:
 test-dep:
 	! node --pending-deprecation --trace-deprecation ./index.js 2>&1 | grep .
 
+# Smoke the bundle in both consumer shapes: a browser <script>, where the
+# UMD wrapper leaves a namespace global behind once the CommonJS branch is
+# out of the way, and a CJS require(), which is how bundlers pull the same
+# file in from a CDN.
+smoke-minjs: $(JSDEST)
+	(echo 'module = void 0; exports = void 0;' && cat $< && echo '; for (const k of process.argv.slice(2)) { if (typeof $(CLASS)[k] !== "function") { console.error("missing browser export:", k); process.exit(1); } console.log("browser export OK:", k); }') | node - $(NAMED_EXPORTS)
+	node --input-type=commonjs -e 'const m = require("$(JSDEST)"); for (const k of process.argv.slice(1)) { if (typeof m[k] !== "function") { console.error("missing minjs CJS export:", k); process.exit(1); } console.log("minjs CJS export OK:", k); }' $(NAMED_EXPORTS)
+
 bench:
 	node lib/benchmark.js 1
 
-.PHONY: all clean test jshint mocha test-dep bench
+.PHONY: all clean test jshint mocha test-dep smoke-minjs bench
