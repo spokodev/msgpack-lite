@@ -1,19 +1,8 @@
-# msgpack-lite [![npm version](https://badge.fury.io/js/msgpack-lite.svg)](http://badge.fury.io/js/msgpack-lite) [![Build Status](https://travis-ci.org/kawanet/msgpack-lite.svg?branch=master)](https://travis-ci.org/kawanet/msgpack-lite)
+# msgpack-lite [![npm version](https://badge.fury.io/js/msgpack-lite.svg)](http://badge.fury.io/js/msgpack-lite) [![Node.js CI](https://github.com/kawanet/msgpack-lite/workflows/Node.js%20CI/badge.svg?branch=main)](https://github.com/kawanet/msgpack-lite/actions/)
 
 Fast Pure JavaScript MessagePack Encoder and Decoder
 
-[![Sauce Test Status](https://saucelabs.com/browser-matrix/msgpack-lite.svg)](https://saucelabs.com/u/msgpack-lite)
-
 Online demo: [http://kawanet.github.io/msgpack-lite/](http://kawanet.github.io/msgpack-lite/)
-
-### Features
-
-- Pure JavaScript only (No node-gyp nor gcc required)
-- Faster than any other pure JavaScript libraries on node.js v4
-- Even faster than node-gyp C++ based [msgpack](https://www.npmjs.com/package/msgpack) library (**90% faster** on encoding)
-- Streaming encoding and decoding interface is also available. It's more faster.
-- Ready for [Web browsers](https://saucelabs.com/u/msgpack-lite) including Chrome, Firefox, Safari and even IE8
-- [Tested](https://travis-ci.org/kawanet/msgpack-lite) on Node.js v0.10, v0.12, v4, v5 and v6 as well as Web browsers
 
 ### Encoding and Decoding MessagePack
 
@@ -101,24 +90,16 @@ Run tests on node.js:
 $ make test
 ```
 
-Run tests on browsers:
-
-```sh
-$ make test-browser-local
-open the following url in a browser:
-http://localhost:4000/__zuul
-```
-
 ### Browser Build
 
-Browser version [msgpack.min.js](https://rawgit.com/kawanet/msgpack-lite/master/dist/msgpack.min.js) is also available. 50KB minified, 14KB gziped.
+Browser version [msgpack.min.js](https://cdn.jsdelivr.net/npm/msgpack-lite/dist/msgpack.min.js) is also available. 50KB minified, 14KB gziped.
 
 ```html
 <!--[if lte IE 9]>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.1.10/es5-shim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"></script>
 <![endif]-->
-<script src="https://rawgit.com/kawanet/msgpack-lite/master/dist/msgpack.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/msgpack-lite/dist/msgpack.min.js"></script>
 <script>
 // encode from JS Object to MessagePack (Uint8Array)
 var buffer = msgpack.encode({foo: "bar"});
@@ -163,76 +144,12 @@ uglifyjs tmp/main.browserify.js -m -c -o js/main.min.js
 cp node_modules/msgpack-lite/dist/msgpack.min.js js/msgpack.min.js
 ```
 
-Step #4: load [msgpack.min.js](https://rawgit.com/kawanet/msgpack-lite/master/dist/msgpack.min.js) before your code.
+Step #4: load [msgpack.min.js](https://cdn.jsdelivr.net/npm/msgpack-lite/dist/msgpack.min.js) before your code.
 
 ```html
 <script src="js/msgpack.min.js"></script>
 <script src="js/main.min.js"></script>
 ```
-
-### Interoperability
-
-It is tested to have basic compatibility with other Node.js MessagePack modules below:
-
-- [https://www.npmjs.com/package/msgpack](https://www.npmjs.com/package/msgpack) (1.0.2)
-- [https://www.npmjs.com/package/msgpack-js](https://www.npmjs.com/package/msgpack-js) (0.3.0)
-- [https://www.npmjs.com/package/msgpack-js-v5](https://www.npmjs.com/package/msgpack-js-v5) (0.3.0-v5)
-- [https://www.npmjs.com/package/msgpack-unpack](https://www.npmjs.com/package/msgpack-unpack) (2.1.1)
-- [https://github.com/msgpack/msgpack-javascript](https://github.com/msgpack/msgpack-javascript) (msgpack.codec)
-- [https://www.npmjs.com/package/msgpack5](https://www.npmjs.com/package/msgpack5) (3.3.0)
-- [https://www.npmjs.com/package/notepack](https://www.npmjs.com/package/notepack) (0.0.2)
-
-### Benchmarks
-
-A benchmark tool `lib/benchmark.js` is available to compare encoding/decoding speed
-(operation per second) with other MessagePack modules.
-It counts operations of [1KB JSON document](https://github.com/kawanet/msgpack-lite/blob/master/test/example.json) in 10 seconds.
-
-```sh
-$ npm install msgpack msgpack-js msgpack-js-v5 msgpack-unpack msgpack5 notepack
-$ npm run benchmark 10
-```
-
-operation                                                 |   op   |   ms  |  op/s 
---------------------------------------------------------- | -----: | ----: | -----:
-buf = Buffer(JSON.stringify(obj));                        | 1055200 | 10000 | 105520
-obj = JSON.parse(buf);                                    | 863800 | 10000 |  86380
-buf = require("msgpack-lite").encode(obj);                | 969100 | 10000 |  96910
-obj = require("msgpack-lite").decode(buf);                | 600300 | 10000 |  60030
-buf = require("msgpack").pack(obj);                       | 503500 | 10001 |  50344
-obj = require("msgpack").unpack(buf);                     | 560200 | 10001 |  56014
-buf = Buffer(require("msgpack.codec").msgpack.pack(obj)); | 653500 | 10000 |  65349
-obj = require("msgpack.codec").msgpack.unpack(buf);       | 367500 | 10001 |  36746
-buf = require("msgpack-js-v5").encode(obj);               | 189500 | 10002 |  18946
-obj = require("msgpack-js-v5").decode(buf);               | 408900 | 10000 |  40890
-buf = require("msgpack-js").encode(obj);                  | 189200 | 10000 |  18920
-obj = require("msgpack-js").decode(buf);                  | 375600 | 10002 |  37552
-buf = require("msgpack5")().encode(obj);                  | 110500 | 10009 |  11040
-obj = require("msgpack5")().decode(buf);                  | 165500 | 10000 |  16550
-buf = require("notepack")().encode(obj);                  | 847800 | 10000 |  84780
-obj = require("notepack")().decode(buf);                  | 599800 | 10000 |  59980
-obj = require("msgpack-unpack").decode(buf);              |  48100 | 10002 |   4809
-
-Streaming benchmark tool `lib/benchmark-stream.js` is also available.
-It counts milliseconds for 1,000,000 operations of 30 bytes fluentd msgpack fragment.
-This shows streaming encoding and decoding are super faster.
-
-```sh
-$ npm run benchmark-stream 2
-```
-
-operation (1000000 x 2)                          |   op    |  ms   |  op/s 
------------------------------------------------- | ------: | ----: | -----:
-stream.write(msgpack.encode(obj));               | 1000000 |  3027 | 330360
-stream.write(notepack.encode(obj));              | 1000000 |  2012 | 497017
-msgpack.Encoder().on("data",ondata).encode(obj); | 1000000 |  2956 | 338294
-msgpack.createEncodeStream().write(obj);         | 1000000 |  1888 | 529661
-stream.write(msgpack.decode(buf));               | 1000000 |  2020 | 495049
-stream.write(notepack.decode(buf));              | 1000000 |  1794 | 557413
-msgpack.Decoder().on("data",ondata).decode(buf); | 1000000 |  2744 | 364431
-msgpack.createDecodeStream().write(buf);         | 1000000 |  1341 | 745712
-
-Test environment: msgpack-lite 0.1.14, Node v4.2.3, Intel(R) Xeon(R) CPU E5-2666 v3 @ 2.90GHz
 
 ### MessagePack Mapping Table
 
@@ -412,7 +329,7 @@ msgpack.decode(new Buffer([0xa2, 0x41, 0x61]), options).toString(); // => 'Aa' (
 
 The MIT License (MIT)
 
-Copyright (c) 2015-2016 Yusuke Kawasaki
+Copyright (c) 2015-2026 Yusuke Kawasaki
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

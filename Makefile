@@ -3,7 +3,6 @@
 SRC=./lib/browser.js
 LIB=./index.js ./lib/*.js
 TESTS=./test/*.js
-TESTS_BROWSER=./test/[12]?.*.js
 HINTS=$(LIB) $(TESTS) ./*.json ./test/*.json
 CLASS=msgpack
 DIST=./dist
@@ -25,8 +24,7 @@ $(JSDEST): $(JSTEMP)
 	./node_modules/.bin/uglifyjs $(JSTEMP) -c -m -r Buffer -o $(JSDEST)
 	ls -l $(JSDEST)
 
-test:
-	@if [ "x$(BROWSER)" = "x" ]; then make test-node; else make test-browser; fi
+test: jshint mocha test-dep
 
 mocha:
 	./node_modules/.bin/mocha -R spec $(TESTS)
@@ -34,15 +32,12 @@ mocha:
 jshint:
 	./node_modules/.bin/jshint $(HINTS)
 
-test-node: jshint mocha
-
-test-browser: $(JSDEST)
-	./node_modules/.bin/zuul -- $(TESTS_BROWSER)
-
-test-browser-local: $(JSDEST)
-	./node_modules/.bin/zuul --local 4000 -- $(TESTS_BROWSER)
+# Requiring the library must stay silent. Deprecation warnings only
+# surface under --pending-deprecation, so ask for them explicitly.
+test-dep:
+	! node --pending-deprecation --trace-deprecation ./index.js 2>&1 | grep .
 
 bench:
 	node lib/benchmark.js 1
 
-.PHONY: all clean test jshint mocha bench test-node test-browser test-browser-local
+.PHONY: all clean test jshint mocha test-dep bench

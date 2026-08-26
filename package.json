@@ -1,7 +1,7 @@
 {
   "name": "msgpack-lite",
   "description": "Fast Pure JavaScript MessagePack Encoder and Decoder",
-  "version": "0.1.26",
+  "version": "0.1.27",
   "author": "@kawanet",
   "bin": {
     "msgpack": "./bin/msgpack"
@@ -15,8 +15,10 @@
     "Frederik Dudzik <4004blog@gmail.com>",
     "Garrett Serack <gserack@gmail.com>",
     "Jesse Armand <jesse@jessearmand.com>",
+    "Joshua Mouch <josh@mouch.name>",
     "Joshua Wise <josh@joshuawise.ninja>",
-    "Maciej Hirsz <maciej.hirsz@gmail.com>"
+    "Maciej Hirsz <maciej.hirsz@gmail.com>",
+    "Rafał Michalski <royaltm75@gmail.com>"
   ],
   "dependencies": {
     "event-lite": "^0.1.1",
@@ -31,8 +33,7 @@
     "jshint": "^2.9.3",
     "mocha": "^3.1.2",
     "msgpack.codec": "git+https://github.com/kawanet/msgpack-javascript.git#msgpack.codec",
-    "uglify-js": "^2.7.3",
-    "zuul": "^3.11.1"
+    "uglify-js": "^2.7.3"
   },
   "homepage": "https://github.com/kawanet/msgpack-lite",
   "jshintConfig": {
@@ -71,7 +72,6 @@
     "fixpack": "fixpack",
     "make": "make",
     "size": "make clean dist/msgpack.min.js && gzip -9fkv dist/msgpack.min.js && ls -l dist",
-    "test": "make test",
-    "test-browser-local": "make test-browser-local"
+    "test": "make test"
   }
 }
