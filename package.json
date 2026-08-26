@@ -28,12 +28,12 @@
   },
   "devDependencies": {
     "async": "^3.2.6",
-    "browserify": "^13.1.0",
+    "browserify": "^17.0.1",
     "concat-stream": "^2.0.0",
     "jshint": "^2.13.6",
     "mocha": "^11.8.0",
     "msgpack.codec": "git+https://github.com/kawanet/msgpack-javascript.git#msgpack.codec",
-    "uglify-js": "^2.7.3"
+    "uglify-js": "^3.19.3"
   },
   "files": [
     "LICENSE",
