@@ -35,6 +35,16 @@
     "msgpack.codec": "git+https://github.com/kawanet/msgpack-javascript.git#msgpack.codec",
     "uglify-js": "^2.7.3"
   },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "bin/msgpack",
+    "dist/msgpack.min.js",
+    "global.js",
+    "index.js",
+    "lib/*.js",
+    "!lib/benchmark*.js"
+  ],
   "homepage": "https://github.com/kawanet/msgpack-lite",
   "jshintConfig": {
     "es3": true,
