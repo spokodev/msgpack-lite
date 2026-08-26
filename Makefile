@@ -11,7 +11,7 @@ JSDEST=./dist/msgpack.min.js
 MINJS_MAX_BYTES := 60000
 NAMED_EXPORTS := encode decode Encoder Decoder createCodec
 
-all: test $(JSDEST)
+all: $(JSDEST)
 
 clean:
 	rm -fr $(JSDEST) $(JSTEMP)
