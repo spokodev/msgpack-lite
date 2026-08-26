@@ -1,4 +1,8 @@
-# msgpack-lite [![npm version](https://badge.fury.io/js/msgpack-lite.svg)](http://badge.fury.io/js/msgpack-lite) [![Node.js CI](https://github.com/kawanet/msgpack-lite/workflows/Node.js%20CI/badge.svg?branch=main)](https://github.com/kawanet/msgpack-lite/actions/)
+# msgpack-lite
+
+[![Node.js CI](https://github.com/kawanet/msgpack-lite/workflows/Node.js%20CI/badge.svg?branch=main)](https://github.com/kawanet/msgpack-lite/actions/)
+[![npm version](https://img.shields.io/npm/v/msgpack-lite)](https://www.npmjs.com/package/msgpack-lite)
+[![gzip size](https://img.badgesize.io/https://cdn.jsdelivr.net/npm/msgpack-lite/dist/msgpack.min.js?compression=gzip)](https://cdn.jsdelivr.net/npm/msgpack-lite/dist/msgpack.min.js)
 
 Fast Pure JavaScript MessagePack Encoder and Decoder
 
