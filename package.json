@@ -71,6 +71,9 @@
   ],
   "license": "MIT",
   "main": "index.js",
+  "overrides": {
+    "buffer": "4.9.2"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/kawanet/msgpack-lite.git"
